@@ -7,6 +7,9 @@
 #include <BlynkSimpleEsp8266.h>
 #include <SimpleTimer.h>
 #include <DHT.h>
+uint16_t sensor;
+    byte sec = 1;
+   
 
 
 
@@ -26,15 +29,14 @@ char pass[] = "t9indigo";
 //#define DHTTYPE DHT22   // DHT 22, AM2302, AM2321
 //#define DHTTYPE DHT21   // DHT 21, AM2301
 
-DHT dht(DHTPIN, DHTTYPE);
-SimpleTimer timer;
+
 
 // This function sends Arduino's up time every second to Virtual Pin (5).
 // In the app, Widget's reading frequency should be set to PUSH. This means
 // that you define how often to send data to Blynk App.
 void sendSensor()
 {
-  float h = dht.readHumidity();
+  float h = dht1.readHumidity();
   float t = dht.readTemperature(); // or dht.readTemperature(true) for Fahrenheit
 
   if (isnan(h) || isnan(t)) {
@@ -45,7 +47,9 @@ void sendSensor()
   // Please don't send more that 10 values per second.
   Blynk.virtualWrite(V5, h);  //V5 is for Humidity
   Blynk.virtualWrite(V6, t);  //V6 is for Temperature
-  Blynk.virtualWrite(V10, A0);  //v 10 PHOTO
+  
+  sensor = analogRead(PHOTO); 
+ Blynk.virtualWrite(V1, sensor);
         
    
 }
