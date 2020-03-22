@@ -1,10 +1,13 @@
 
 #define BLYNK_PRINT Serial
+#define PHOTO A0 // фоторезистор подключен к пину A0
+#define BLYNK_PRINT Serial // Comment this out to disable prints and save space
 #include <SPI.h>
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 #include <SimpleTimer.h>
 #include <DHT.h>
+
 
 
 // You should get Auth Token in the Blynk App.
@@ -42,6 +45,9 @@ void sendSensor()
   // Please don't send more that 10 values per second.
   Blynk.virtualWrite(V5, h);  //V5 is for Humidity
   Blynk.virtualWrite(V6, t);  //V6 is for Temperature
+  Blynk.virtualWrite(V10, A0);  //v 10 PHOTO
+        
+   
 }
 
 void setup()
